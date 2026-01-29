@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { timeout, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { API_BASE_URL } from '../app.config.constants';//במקום כל פעם להלחליף בין השרת למקומי יצרתי קובץ גלובלי ששם אני מחליפה בשניה
 
 export interface CommentItem {
   id?: string;
@@ -15,7 +16,8 @@ export interface CommentItem {
 @Injectable({ providedIn: 'root' })
 export class CommentsService {
   private http = inject(HttpClient);
-  private api = 'http://localhost:3000/api/comments';
+  private api = `${API_BASE_URL}/api/comments`;
+  
 
   getComments(taskId: string) {
     return this.http.get<CommentItem[]>(`${this.api}?taskId=${taskId}`);

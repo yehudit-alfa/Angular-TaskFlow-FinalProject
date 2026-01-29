@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { AuthResponse, LoginCredentials, User } from '../models/user';
 import { Observable } from 'rxjs';
-
+import { API_BASE_URL } from '../app.config.constants';//במקום כל פעם להלחליף בין השרת למקומי יצרתי קובץ גלובלי ששם אני מחליפה בשניה
 // export interface UserInfo {
 //   id: string;
 //   name: string;
@@ -14,8 +14,9 @@ import { Observable } from 'rxjs';
 })
 export class Auth {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api/auth';
-  private usersApiUrl = 'http://localhost:3000/api/users';
+
+  private apiUrl = `${API_BASE_URL}/api/auth`;
+  private usersApiUrl = `${API_BASE_URL}/api/users`;
 
   register(userData: User) {
     return this.http.post(`${this.apiUrl}/register`, userData);

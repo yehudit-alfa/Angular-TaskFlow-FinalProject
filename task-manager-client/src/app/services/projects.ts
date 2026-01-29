@@ -2,13 +2,14 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { Project } from '../models/project';
+import { API_BASE_URL } from '../app.config.constants';//במקום כל פעם להלחליף בין השרת למקומי יצרתי קובץ גלובלי ששם אני מחליפה בשניה
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectsService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api/projects';
+  private apiUrl = `${API_BASE_URL}/api/projects`;
 
   // Cache for projects
   private projectsCache = new BehaviorSubject<Project[]>([]);

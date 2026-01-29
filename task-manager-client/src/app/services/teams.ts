@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { Team } from '../models/team';
 import { User } from '../models/user';
+import { API_BASE_URL } from '../app.config.constants';//במקום כל פעם להלחליף בין השרת למקומי יצרתי קובץ גלובלי ששם אני מחליפה בשניה
 
 export interface TeamMember {
   id: string;
@@ -16,7 +17,8 @@ export interface TeamMember {
 })
 export class TeamsService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api/teams';
+  private apiUrl = `${API_BASE_URL}/api/teams`;
+
 
   // Cache for teams
   private teamsCache = new BehaviorSubject<Team[]>([]);
@@ -66,7 +68,8 @@ export class TeamsService {
   }
 
 getAllUsers(): Observable<User[]> {
-  return this.http.get<User[]>('http://localhost:3000/api/users');
+  return this.http.get<User[]>(`${API_BASE_URL}/api/users`);
+  
 }
 
 // הוסיפי את הפונקציה הזו בתוך ה-TeamsService

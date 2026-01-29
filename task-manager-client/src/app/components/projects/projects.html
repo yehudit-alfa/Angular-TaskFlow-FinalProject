@@ -1,0 +1,32 @@
+<div class="projects-container" dir="rtl">
+  <div class="main-wrapper"> 
+    
+    @if (message) {
+      <div [class]="'toast ' + messageType">{{ message }}</div>
+    }
+
+    <div class="header-section">
+      <h2>הפרויקטים של הצוות</h2>
+    </div>
+
+    <div class="create-box">
+      <h3>יצירת פרויקט חדש</h3>
+      <input type="text" [(ngModel)]="newProjectName" placeholder="שם הפרויקט...">
+      <textarea [(ngModel)]="newProjectDescription" placeholder="מה המטרה של הפרויקט הזה?"></textarea>
+      <button class="btn-create" (click)="onCreateProject()">+ צור פרויקט</button>
+    </div>
+
+    <div class="projects-grid">
+      @for (project of projects; track project.id) {
+        <div class="project-card">
+          <div class="project-content">
+            <h3>{{ project.name }}</h3>
+            <p>{{ project.description || 'אין תיאור' }}</p>
+          </div>
+          <button class="btn-manage" (click)="goToTasks(project.id)">ניהול משימות</button>
+        </div>
+      }
+    </div>
+    
+  </div> 
+</div>

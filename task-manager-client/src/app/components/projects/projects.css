@@ -1,0 +1,418 @@
+מכולה ראשית
+.projects-container {
+  padding: 30px;
+  background-color: #fbfdff;
+  min-height: 100vh;
+  font-family: inherit;
+}
+
+/* כותרת */
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-align: center; /* centered title */
+}
+
+/* תיבת יצירת פרויקט */
+.create-box {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(15,23,42,0.04);
+  margin-bottom: 30px;
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column; /* keep inputs stacked */
+}
+
+.create-box input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.create-box button {
+  background-color: rgba(37,99,235,0.95); /* slightly lighter primary */
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.create-box button:hover {
+  background-color: #2563eb;
+}
+
+/* גריד הפרויקטים */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* כרטיס פרויקט (בסגנון התמונה) */
+.project-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #eef0f2;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.project-card h3 {
+  margin: 0 0 10px 0;
+  color: #1e293b;
+  font-size: 1.25rem;
+}
+
+.project-card p {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* כפתור כניסה למשימות */
+.btn-tasks {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e8eef8;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.18s;
+}
+
+.btn-tasks:hover {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+
+/* עיצוב שדות הטקסט */
+.create-box input, 
+.create-box textarea {
+  width: 100%; /* תופס את כל רוחב התיבה */
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #f8fafc;
+  box-sizing: border-box; /* מבטיח שהפדינג לא יהרוס את הרוחב */
+}
+
+/* עיצוב ספציפי לתיאור */
+.create-box textarea {
+  min-height: 100px;
+  resize: vertical; /* מאפשר למשתמש להגדיל רק למטה/למעלה */
+}
+
+/* עיצוב הכפתור שיהיה רחב ויפה */
+.create-box button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+
+.create-box button:hover {
+  background-color: #1d4ed8;
+}
+/* הכרטיס עצמו */
+.project-card {
+  position: relative; /* חשוב בשביל המיקום של הפח */
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #eef0f2;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+
+/* כפתור הפח - צף בפינה השמאלית העליונה (בגלל RTL) */
+.delete-icon-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+  padding: 5px;
+}
+
+.delete-icon-btn:hover {
+  color: #ef4444;
+  transform: scale(1.1);
+}
+
+/* תוכן הפרויקט */
+.project-content h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.3rem;
+  color: #1e293b;
+  padding-left: 30px; /* רווח כדי שהטקסט לא ייכנס מתחת לפח */
+}
+
+.project-content p {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+/* כפתור ניהול משימות בתחתית */
+.project-footer {
+  margin-top: auto; /* דוחף את הכפתור הכי למטה שאפשר */
+}
+
+.btn-manage {
+  width: 100%;
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-manage:hover {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+/* הכרטיס עצמו - עכשיו הוא נצמד לתוכן */
+.project-card {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #eef0f2;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  display: flex;
+  flex-direction: column;
+  /* הסרנו את ה-min-height הגדול */
+  height: fit-content; 
+}
+
+/* כפתור הפח */
+.delete-icon-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  z-index: 10;
+  padding: 5px;
+}
+
+/* תוכן הפרויקט */
+.project-content {
+  margin-bottom: 15px; /* מרחק קטן וקבוע מהכפתור */
+}
+
+.project-content h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.2rem;
+  color: #1e293b;
+  padding-left: 25px; /* מקום לפח */
+}
+
+.project-content p {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* כפתור ניהול משימות - צמוד לתוכן */
+.btn-manage {
+  width: 100%;
+  background-color: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-manage:hover {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+/* הכרטיס עצמו - צמצום מרחקים */
+.project-card {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  padding: 15px; /* הקטנו פדינג */
+  border: 1px solid #eef0f2;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* רווח קבוע וקטן בין האלמנטים */
+  height: auto; /* מבטל גובה קבוע */
+  min-height: unset; /* מבטל הגדרות קודמות */
+}
+
+/* כפתור הפח - בפינה */
+.delete-icon-btn {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* תוכן הטקסט */
+.project-content h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1e293b;
+  padding-left: 20px; /* מקום לפח */
+}
+
+.project-content p {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin: 5px 0 0 0; /* רווח קטן מעל התיאור */
+  line-height: 1.3;
+}
+
+/* כפתור ניהול משימות - צמוד למטה */
+.btn-manage {
+  width: 100%;
+  background-color: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  padding: 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* גריד הפרויקטים - נגדיר שהעמודות יהיו צרות יותר */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* הקטנו מ-300 ל-220 */
+  gap: 15px;
+}
+
+/* הכרטיס הצר והקומפקטי */
+.project-card {
+  position: relative;
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  border: 1px solid #eef0f2;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  display: flex;
+  flex-direction: column;
+  max-width: 260px; /* הגבלת רוחב מקסימלית לכרטיס */
+  height: fit-content; /* הכרטיס יגדל רק לפי התוכן */
+}
+
+/* כפתור הפח */
+.delete-icon-btn {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* תוכן מצומצם */
+.project-content h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+  color: #1e293b;
+  padding-left: 20px;
+  word-wrap: break-word; /* מונע מטקסט ארוך לחרוג מהרוחב הצר */
+}
+
+.project-content p {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+/* כפתור ניהול משימות - צמוד לטקסט */
+.btn-manage {
+  width: 100%;
+  background-color: #f8fafc;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  padding: 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-manage:hover {
+  background-color: #2563eb;
+  color: white;
+}
+/* 1. המעטפת שמרחיקה מהקירות בצורה עדינה */
+.main-wrapper {
+  max-width: 1200px; /* רוחב נדיב כדי שלא יהיה צפוף מדי */
+  margin: 0 auto;    /* ממרכז את הכל */
+  padding: 0 40px;   /* מרחק של 40 פיקסלים מהצדדים */
+}
+
+/* 2. הקטנת הדיב של יצירת פרויקט */
+.create-box {
+  max-width: 500px;  /* הקטנה משמעותית של הרוחב */
+  margin-left: auto; /* מרכז את התיבה */
+  margin-right: auto;
+  /* שאר העיצוב המקורי שלך נשאר כמו שהוא */
+}
+
+/* 3. הבטחת מרחקים בתוך הגריד */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  width: 100%;
+}

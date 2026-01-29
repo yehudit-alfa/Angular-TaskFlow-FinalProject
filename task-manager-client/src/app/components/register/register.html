@@ -1,0 +1,34 @@
+<div class="login-container" dir="rtl">
+  @if (message) {
+    <div class="toast">{{ message }}</div>
+  }
+    <div class="login-card">
+    <h2>יצירת חשבון</h2>
+    <p>הצטרפי למערכת ניהול המשימות</p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>שם מלא</label>
+        <input type="text" formControlName="name" placeholder="הכניסי שם מלא...">
+      </div>
+
+      <div class="form-group">
+        <label>אימייל</label>
+        <input type="email" formControlName="email" placeholder="example@mail.com">
+      </div>
+
+      <div class="form-group">
+        <label>סיסמה</label>
+        <input type="password" formControlName="password" placeholder="לפחות 6 תווים...">
+      </div>
+
+      <button type="submit" [disabled]="registerForm.invalid" class="login-btn">
+        הרשמה וכניסה
+      </button>
+      
+      <div class="switch-auth">
+        כבר רשומה? <a (click)="goToLogin()">חזרי להתחברות</a>
+      </div>
+    </form>
+  </div>
+</div>

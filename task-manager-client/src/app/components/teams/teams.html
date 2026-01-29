@@ -1,0 +1,46 @@
+<div class="teams-container" dir="rtl">
+  <div *ngIf="message" [class]="'toast ' + messageType">{{ message }}</div>
+    <div class="header">
+    <h1>הצוותים שלי</h1>
+  </div>
+  <div class="create-team-wrapper">
+    <div class="create-team-box">
+      <input type="text" [(ngModel)]="newTeamName" placeholder="שם הצוות החדש...">
+      <div class="create-team-actions">
+        <button class="btn btn-primary btn-small" (click)='onCreateTeam()'>צור צוות</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="teams-grid">
+    <div *ngFor="let team of teams" class="team-card">
+      <div class="team-name">{{ team.name }}</div>
+      <div class="member-count">{{ team.members_count }} חברים בצוות</div>
+      <div class="team-actions">
+<button class="btn btn-small" (click)="openAddMemberModal(team.id)">+ הוסף חבר</button>
+        <button class="btn btn-secondary btn-small" (click)="viewProjects(team.id)">פרויקטים</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" *ngIf="showAddUserModal">
+      <div class="modal-content">
+        <h3>הוספת חבר לצוות</h3>
+
+<select [(ngModel)]="selectedUserId" class="user-select">
+  <option value="" disabled selected>-- בחר משתמש --</option>
+  @for (user of filteredUsers; track user.id) {
+    <option [value]="user.id">{{ user.name }}</option>
+  }
+</select>
+
+@if (filteredUsers.length === 0 && allUsers.length > 0) {
+  <p class="error-msg">כל המשתמשים כבר בצוות זה</p>
+}
+        <div class="modal-actions">
+          <button class="btn btn-primary" (click)="onAddMember()" [disabled]="!selectedUserId">הוסף</button>
+          <button class="btn btn-ghost" (click)="showAddUserModal = false; selectedUserId = ''">ביטול</button>
+        </div>
+      </div>
+    </div>
+</div>

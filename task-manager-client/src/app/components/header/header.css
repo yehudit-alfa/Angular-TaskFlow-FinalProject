@@ -1,0 +1,25 @@
+.app-header{
+  display:grid;
+  grid-template-columns: 88px 1fr 160px;
+  align-items:center;
+  padding:12px 20px;
+  background:#ffffff;
+  border-bottom:1px solid #e6e6e6;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.left-area{ display:flex; align-items:center; justify-content:flex-start }
+.icon-logout{ background:#f3f4f6;border:1px solid #e6e6e6;border-radius:8px;cursor:pointer;padding:8px;display:flex;align-items:center;justify-content:center }
+.icon-logout svg { display:block }
+.icon-logout svg path { stroke:#374151 }
+.icon-logout:hover{ background:#eef2ff }
+
+.center-area{ text-align:center }
+.brand-title{ font-weight:800; font-size:20px; color:#0b2545 }
+
+.right-area{ display:flex; align-items:center; justify-content:flex-end; gap:12px }
+.user-name{ color:#0b2545; font-weight:600 }
+.avatar-icon{ width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white }
+.avatar-icon svg { display:block }

@@ -1,0 +1,45 @@
+<div class="comments-container" dir="rtl">
+  <div class="comments-list">
+    @if (loading) {
+      <div class="status-msg">טעינת תגובות...</div>
+    } @else if (comments.length === 0) {
+      <div class="status-msg">אין תגובות עדיין. היו הראשונים להגיב!</div>
+    } @else {
+      @for (c of comments; track c.id || $index) {
+        <div class="comment-bubble">
+  @if (c.userName) {
+    <div class="comment-header">
+      <span class="user-name">{{ c.userName }}</span>
+      <span class="comment-date">{{ c.createdAt | date:'HH:mm' }}</span>
+    </div>
+  }
+  
+  <div class="comment-text">{{ c.body }}</div>
+</div>
+      }
+    }
+  </div>
+
+  <div class="add-comment-area">
+    @if (errorMessage) {
+      <div class="comment-error">{{ errorMessage }}</div>
+    }
+    <div class="input-wrapper">
+      <textarea 
+        [(ngModel)]="newText" 
+        placeholder="כתוב תגובה..." 
+        [disabled]="posting"
+        (keydown.enter)="$event.preventDefault(); post()">
+      </textarea>
+      <button class="send-btn" (click)="post()" [disabled]="posting || !newText.trim()">
+        @if (posting) {
+          <span class="spinner"></span>
+        } @else {
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+          </svg>
+        }
+      </button>
+    </div>
+  </div>
+</div>

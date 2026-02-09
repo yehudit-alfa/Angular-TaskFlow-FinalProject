@@ -1,0 +1,217 @@
+<div class="app-wrapper">
+  <main class="content">
+    @if (message) {
+      <div [class]="'toast ' + messageType">{{ message }}</div>
+    }
+
+    <div class="page-header">
+      <h1>{{ projectName }}</h1>
+      <button class="add-task-main" (click)="openAddTaskModal('backlog')">Add task</button>
+    </div>
+
+    <div class="board">
+
+      <div class="board-column">
+        <div class="column-header">Backlog</div>
+        <div class="task-list">
+          @for (task of backlogTasks; track task.id) {
+            <div class="task-card">
+              <h4>{{ task.title }}</h4>
+              <p>{{ task.description }}</p>
+              <div class="card-footer">
+                <span [class]="'badge ' + task.priority">{{ task.priority }}</span>
+                <div class="move-actions">
+                  <button class="delete-btn" (click)="deleteTask(task)" title="מחק משימה">🗑️</button>
+                  <button class="btn btn-ghost btn-small" (click)="openEditTaskModal(task)" title="עריכת משימה">✏️</button>
+                  <button class="btn btn-ghost btn-small" (click)="moveTask(task, 'in-progress')">🔄</button>
+                  <button class="btn btn-ghost btn-small" (click)="moveTask(task, 'done')">✔️</button>
+                  <button class="btn btn-comments" (click)="openComments(task)">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    תגובות
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+          <button class="btn btn-inline add-task-inline" (click)="openAddTaskModal('backlog')">+ Add task</button>
+        </div>
+      </div>
+
+      <div class="board-column">
+        <div class="column-header">In Progress</div>
+        <div class="task-list">
+          @for (task of inProgressTasks; track task.id) {
+            <div class="task-card">
+              <h4>{{ task.title }}</h4>
+              <p>{{ task.description }}</p>
+              <div class="card-footer">
+                <span [class]="'badge ' + task.priority">{{ task.priority }}</span>
+                <div class="move-actions">
+                  <button class="delete-btn" (click)="deleteTask(task)" title="מחק משימה">🗑️</button>
+                  <button class="btn btn-ghost btn-small" (click)="openEditTaskModal(task)" title="עריכת משימה">✏️</button>
+                  <button class="btn btn-ghost btn-small" (click)="moveTask(task, 'backlog')">⬅️</button>
+                  <button class="btn btn-ghost btn-small" (click)="moveTask(task, 'done')">✔️</button>
+                  <button class="btn btn-comments btn-small" (click)="openComments(task)">תגובות</button>
+                </div>
+              </div>
+            </div>
+          }
+          <button class="btn btn-inline add-task-inline" (click)="openAddTaskModal('in-progress')">+ Add task</button>
+        </div>
+      </div>
+
+      <div class="board-column">
+        <div class="column-header">Done</div>
+        <div class="task-list">
+          @for (task of doneTasks; track task.id) {
+            <div class="task-card">
+              <h4>{{ task.title }}</h4>
+              <p>{{ task.description }}</p>
+              <div class="card-footer">
+                <span [class]="'badge ' + task.priority">{{ task.priority }}</span>
+                <div class="move-actions">
+                  <button class="delete-btn" (click)="deleteTask(task)" title="מחק משימה">🗑️</button>
+                  <button class="btn btn-ghost btn-small" (click)="openEditTaskModal(task)" title="עריכת משימה">✏️</button>
+                  <button class="btn btn-ghost btn-small" (click)="moveTask(task, 'backlog')">⬅️</button>
+                  <button class="btn btn-ghost btn-small" (click)="moveTask(task, 'done')">✔️</button>
+                  <button class="btn btn-comments btn-small" (click)="openComments(task)">תגובות</button>
+                </div>
+              </div>
+            </div>
+          }
+          <button class="btn btn-inline add-task-inline" (click)="openAddTaskModal('done')">+ Add task</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  @if (isModalOpen) {
+    <div class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>משימה חדשה</h3>
+          <button class="close-x" (click)="closeModal()">×</button>
+        </div>
+
+        <form #newTaskForm="ngForm" (ngSubmit)="saveTask(newTaskForm)">
+          <div class="modal-body">
+            <div class="form-group">
+              <label>כותרת המשימה <span style="color: red">*</span></label>
+              <input
+                type="text"
+                [(ngModel)]="newTask.title"
+                #newTitleModel="ngModel"
+                name="newTitle"
+                required
+                placeholder="מה צריך לעשות?"
+                [class.invalid-field]="newTitleModel.invalid && newTaskForm.submitted">
+            </div>
+
+            <div class="form-group">
+              <label>תיאור</label>
+              <textarea
+                [(ngModel)]="newTask.description"
+                #newDescModel="ngModel"
+                name="newDescription"
+                placeholder="פרטי המשימה..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>רמת דחיפות</label>
+              <select [(ngModel)]="newTask.priority" name="newPriority">
+                <option value="low">Low (נמוכה)</option>
+                <option value="medium">Medium (בינונית)</option>
+                <option value="high">High (גבוהה)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">ביטול</button>
+            <button type="submit" class="btn btn-primary"
+              [disabled]="!newTask.title.trim() || isCreatingTask">צור משימה</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  @if (commentsModalOpen) {
+    <div class="modal-overlay comments-modal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>תגובות למשימה</h3>
+          <button class="close-x" (click)="closeComments()">×</button>
+        </div>
+        <div class="modal-body">
+          @if (selectedTaskForComments) {
+            <app-comments [taskId]="selectedTaskForComments.id || ''"></app-comments>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (isEditModalOpen && editingTask) {
+    <div class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>עריכת משימה</h3>
+          <button class="close-x" (click)="closeEditModal()">×</button>
+        </div>
+
+        <form #editTaskForm="ngForm" (ngSubmit)="saveEditTask(editTaskForm)">
+          <div class="modal-body">
+            <div class="form-group">
+              <label>כותרת המשימה <span style="color: red">*</span></label>
+              <input
+                type="text"
+                [(ngModel)]="editingTask.title"
+                #editTitleModel="ngModel"
+                name="editTitle"
+                required
+                placeholder="מה צריך לעשות?"
+                [class.invalid-field]="editTitleModel.invalid && editTaskForm.submitted">
+            </div>
+
+            <div class="form-group">
+              <label>תיאור</label>
+              <textarea
+                [(ngModel)]="editingTask.description"
+                #editDescModel="ngModel"
+                name="editDescription"
+                placeholder="פרטי המשימה..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>רמת דחיפות</label>
+              <select [(ngModel)]="editingTask.priority" name="editPriority">
+                <option value="low">Low (נמוכה)</option>
+                <option value="medium">Medium (בינונית)</option>
+                <option value="high">High (גבוהה)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>סטטוס</label>
+              <select [(ngModel)]="editingTask.status" name="editStatus">
+                <option value="backlog">Backlog</option>
+                <option value="in-progress">In Progress</option>
+                <option value="done">Done</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeEditModal()">ביטול</button>
+            <button type="submit" class="btn btn-primary"
+              [disabled]="!editingTask?.title?.trim() || isUpdatingTask">שמור שינויים</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>
